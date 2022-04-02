@@ -4,12 +4,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TilemapGame
 {
-    public class Game1 : Game
+    public class TilemapProject : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Tilemap tilemap;
 
-        public Game1()
+        public TilemapProject()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -19,7 +20,7 @@ namespace TilemapGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            tilemap = new Tilemap("map.txt");
             base.Initialize();
         }
 
@@ -28,6 +29,7 @@ namespace TilemapGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            tilemap.LoadContent(Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -45,6 +47,9 @@ namespace TilemapGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+            tilemap.Draw(gameTime, _spriteBatch);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
